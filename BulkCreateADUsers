@@ -1,3 +1,4 @@
+# Use this script to create a set of dummy accounts that you can work with quickly.
 $path="OU=IT,DC=Test,DC=com"
 $username="ITuser"
 $count=1..10
