@@ -1,2 +1,2 @@
 # AD_Lab
-# This Repository was created to serve as a central location for scripts that will help you create an AD Lab quickly.
+# This Repository was created to host scripts that you can run in your Active Directory lab for educational purposes.
