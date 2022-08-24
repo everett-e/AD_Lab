@@ -1,0 +1,16 @@
+# Identify the Mail Enable Security Group (MSEG): Create a management scope and management role assignment
+$DistGroupDN = $(Get-DistributionGroup MSEG@____.com).DistinguishedName 
+| New-ManagementScope -Name MSEGScope -RecipientRestrictionFilter "MemberOfGroup -eq '$DistGroupDN'" 
+| New-ManagementRoleAssignment -Name MSEGAssignment -User ImpersonationAccount@____.com -Role ApplicationImpersonation -CustomRecipientWriteScope MSEGScope
+
+$DistGroupDN = $(Get-DistributionGroup MSEG@_____.com).DistinguishedName
+
+CN=MSEGgroup OU=____.onmicrosoft.com,OU=Microsoft Exchange Hosted Organizations,DC=____,DC=____,DC=OUTLOOK,DC=COM
+MSEG@____.onmicrosoft.com
+
+# Set the management scope
+$DistGroupDN = $(Get-DynamicDistributionGroup MSEGgroup@____.onmicrosoft.com).DistinguishedName
+Set-ManagementScope -Name MSEGScope -RecipientRestrictionFilter "MemberOfGroup -eq '$DistGroupDN'"
+
+# Verify
+Get-Mailbox -Filter "MemberOfGroup -eq '$DistGroupDN'"
