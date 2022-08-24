@@ -1,0 +1,17 @@
+# Identify the Mial Enabled Security Group (MESG); Create the management scope and role assignment
+$DistGroupDN = $(Get-DistributionGroup MESG@example.com).DistinguishedName
+| New-ManagementScope -Name MESGScope -RecipientRestrictionFilter "MemberOfGroup -eq '$DistGroupDN'" 
+| New-ManagementRoleAssignment -Name MESGAssignment -User c2log@example.com -Role ApplicationImpersonation -CustomRecipientWriteScope MESGScope
+
+# DN
+$DistGroupDN = $(Get-DistributionGroup MESG@example.com).DistinguishedName
+
+CN=MESG OU=testdomain.onmicrosoft.com,OU=Microsoft Exchange Hosted Organizations,DC=,DC=,DC=,DC=COM
+MSEG@testdomain.onmicrosoft.com
+
+# Set the management scope
+$DistGroupDN = $(Get-DynamicDistributionGroup MSEG@testdomain.onmicrosoft.com).DistinguishedName
+Set-ManagementScope -Name MSEGScope -RecipientRestrictionFilter "MemberOfGroup -eq '$DistGroupDN'"
+
+# Verify
+Get-Mailbox -Filter "MemberOfGroup -eq '$DistGroupDN'"
